@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Prediksi Akademik</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f6f9; }
+        .card-header { background-color: #0d6efd; color: white; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg">
+                <div class="card-header text-center py-3">
+                    <h3 class="mb-0">Sistem Prediksi Nilai Ujian Mahasiswa (End-to-End ML)</h3>
+                    <small>Masukkan data metrik kebiasaan dan lingkungan belajar</small>
+                </div>
+                <div class="card-body p-4">
+                    
+                    {% if prediksi_nilai is not none %}
+                    <div class="alert alert-success text-center mb-4 shadow-sm" role="alert">
+                        <h5 class="text-muted">Berdasarkan kalkulasi model Machine Learning, estimasi nilai Anda adalah:</h5>
+                        <h1 class="display-4 fw-bold text-success">{{ prediksi_nilai }}</h1>
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" action="/">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="text-primary border-bottom pb-2">A. Metrik Kuantitatif</h5>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Jam Belajar per Minggu</label>
+                                    <input type="number" step="0.1" class="form-control" name="Hours_Studied" placeholder="0 - 40" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Persentase Kehadiran (%)</label>
+                                    <input type="number" class="form-control" name="Attendance" placeholder="0 - 100" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Rata-rata Jam Tidur per Malam</label>
+                                    <input type="number" step="0.1" class="form-control" name="Sleep_Hours" placeholder="4 - 10" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Skor Ujian Sebelumnya</label>
+                                    <input type="number" class="form-control" name="Previous_Scores" placeholder="0 - 100" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Sesi Tutor Tambahan (Per Bulan)</label>
+                                    <input type="number" class="form-control" name="Tutoring_Sessions" placeholder="0 - 10" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Aktivitas Fisik/Olahraga (Jam per Minggu)</label>
+                                    <input type="number" class="form-control" name="Physical_Activity" placeholder="0 - 20" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h5 class="text-primary border-bottom pb-2">B. Faktor Lingkungan & Kualitatif</h5>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Keterlibatan Orang Tua</label>
+                                    <select class="form-select" name="Parental_Involvement">
+                                        <option value="1">Low (Rendah)</option>
+                                        <option value="2" selected>Medium (Sedang)</option>
+                                        <option value="0">High (Tinggi)</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Akses ke Sumber Belajar</label>
+                                    <select class="form-select" name="Access_to_Resources">
+                                        <option value="1">Low (Terbatas)</option>
+                                        <option value="2" selected>Medium (Cukup)</option>
+                                        <option value="0">High (Sangat Lengkap)</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Ikut Ekstrakurikuler?</label>
+                                    <select class="form-select" name="Extracurricular_Activities">
+                                        <option value="0">Tidak</option>
+                                        <option value="1">Ya</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Tingkat Motivasi Belajar</label>
+                                    <select class="form-select" name="Motivation_Level">
+                                        <option value="1">Low</option>
+                                        <option value="2" selected>Medium</option>
+                                        <option value="0">High</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Akses Internet di Rumah</label>
+                                    <select class="form-select" name="Internet_Access">
+                                        <option value="0">Tidak Ada</option>
+                                        <option value="1" selected>Ada</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Kualitas Pengajar (Teacher Quality)</label>
+                                    <select class="form-select" name="Teacher_Quality">
+                                        <option value="1">Low</option>
+                                        <option value="2" selected>Medium</option>
+                                        <option value="0">High</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold">Jalankan Prediksi Model</button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
